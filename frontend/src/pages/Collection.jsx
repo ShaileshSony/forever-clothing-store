@@ -5,7 +5,7 @@ import Title from "../components/Title";
 import ProductItem from "../components/productItem";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products, search, showSearch } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -15,6 +15,14 @@ const Collection = () => {
   useEffect(() => {
     setFilterProducts(() => {
       let productsFiltered = products.slice();
+
+      // Filter products based on search query
+      if (search.trim() !== "" && showSearch) {
+         productsFiltered = productsFiltered.filter((item) =>
+          item.name.toLowerCase().includes(search.toLowerCase()),
+        );
+      }
+
       if (category.length > 0 && subCategory.length === 0) {
          productsFiltered = productsFiltered.filter((item) =>
           category.includes(item.category),
@@ -38,9 +46,11 @@ const Collection = () => {
          productsFiltered.sort((a, b) => b.price - a.price);
       }
 
+      
+
       return productsFiltered;
     });
-  }, [products, category, subCategory, sortType]);
+  }, [products, category, subCategory, sortType, search, showSearch]);
 
   const toggleCategoryHandler = (e) => {
     const value = e.target.value;
