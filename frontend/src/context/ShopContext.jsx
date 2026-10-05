@@ -10,6 +10,24 @@ const ShopContextProvider = (props) => {
 
   const [search, setSearch] = useState('');
   const [showSearch, setShowSearch] = useState(false);
+  const [cartItems, setCartItems] = useState([]);
+
+  const addToCart = async (itemId, productSize)=> {
+
+    const itemInCart = cartItems.find((item) => item.id === itemId && item.size === productSize);
+
+    if (itemInCart) {
+      setCartItems(cartItems.map((item) => item.id === itemId && item.size === productSize ? { ...itemInCart, quantity: itemInCart.quantity + 1 } : item));
+    }
+
+    else {
+      const itemToAdd = products.find((product) => product._id === itemId);
+      setCartItems([...cartItems, { ...itemToAdd, quantity: 1, size: productSize }]);
+    }
+
+    
+
+  }
 
   const contextValue = {
     products,
