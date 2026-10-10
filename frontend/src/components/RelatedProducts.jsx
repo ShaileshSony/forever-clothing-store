@@ -14,8 +14,8 @@ const RelatedProducts = ({ category, subCategory }) => {
         if (products.length > 0) {
             const filteredProducts = productsList.filter((product) => product.category === category && product.subCategory === subCategory);
             setRelatedProducts(filteredProducts);
-            console.log(filteredProducts.slice(0, 5));
-            console.log(filteredProducts[0].name);
+            // console.log(filteredProducts.slice(0, 5));
+            // console.log(filteredProducts[0].name);
         };
 
     },[products, category, subCategory]);

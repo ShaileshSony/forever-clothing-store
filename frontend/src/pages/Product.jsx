@@ -6,9 +6,9 @@ import RelatedProducts from "../components/RelatedProducts.jsx";
 
 const Product = () => {
   const { productId } = useParams();
-  console.log(typeof productId);
+  console.log("productId: ",productId);
 
-  const { products } = useContext(ShopContext);
+  const { products, addToCart } = useContext(ShopContext);
 
   const [productData, setProductData] = useState(null);
   const [productImage, setProductImage] = useState([]);
@@ -25,6 +25,7 @@ const Product = () => {
     }
     // console.log(productData);
     // console.log(productImage);
+    //  console.log(selectedProduct);
   }
 
   useEffect(() => {
@@ -32,13 +33,20 @@ const Product = () => {
     // console.log(productData);
   }, [productId, products]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }, [productId]);
+
   // useEffect(() => {
-  //   console.log(productData);
+  //   console.log("productData: ",productData);
   // }, [productData]);
 
   // useEffect(() => {
-  //   console.log(productImage);
-  // }, [productImage]);
+  //   console.log("productImage: ", productImage);
+  // }, [productData]);
 
   return productData ? (
     <div className="border-t border-gray-300 pt-10 transition-opacity ease-in duration-500 opacity-100">
@@ -74,7 +82,7 @@ const Product = () => {
         <p className="text-2xl font-medium mt-4">{currency}{productData.price}</p>
         <p className=" text-gray-600 mt-5 md:w-4/5 "> {productData.description} </p>
 
-        {/* size button */}
+        {/* Product size button */}
         <div className="flex flex-col gap-4 my-4">
           <p>Select Size</p>
           <div className="flex gap-2">
@@ -87,9 +95,9 @@ const Product = () => {
         </div>
 
         {/* add to cart button */}
-
-        <button className="w-[170px] text-sm bg-black text-white py-3 px-8 rounded cursor-pointer active:bg-gray-700 uppercase">Add to Cart</button>
+        <button onClick={()=> addToCart(productData._id, selectedSize)} className="w-42.5 text-sm bg-black text-white py-3 px-8 rounded cursor-pointer active:bg-gray-700 uppercase">Add to Cart</button>
         <hr className="mt-4 " />
+
         <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1 ">
           <p>100% Original product.</p>
           <p>Cash on delivery available on this products</p>
