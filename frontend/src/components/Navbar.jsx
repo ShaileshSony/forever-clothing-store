@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets.js";
-import { Link, NavLink } from "react-router-dom";
+import { Link, Links, NavLink } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext.jsx";
 
 const Navbar = () => {
@@ -11,9 +11,7 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-between items-center py-5 font-medium">
-      <Link to='/'>
         <img src={assets.logo} className="w-36" alt="logo" />
-      </Link>
       {/* Link list */}
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink to="/" className="flex flex-col items-center gap-1">
@@ -43,11 +41,13 @@ const Navbar = () => {
           onClick={() => setShowSearch(true)}
         />
         <div className="group relative">
+          <Link to={'/login'}>
           <img
             src={assets.profile_icon}
             className="w-5 cursor-pointer"
             alt="profile_icon"
           />
+          </Link>
           <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4">
             <div className="flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded ">
               <p className="cursor-pointer hover:text-black ">My Profile</p>

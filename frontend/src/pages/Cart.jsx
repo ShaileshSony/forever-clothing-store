@@ -13,6 +13,7 @@ const Cart = () => {
     removeItemFromCart,
     getTotalProductAmount,
     delivery_fee,
+    navigate
   } = useContext(ShopContext);
 
   const [cartData, setCartData] = useState([]);
@@ -85,13 +86,22 @@ const Cart = () => {
       </div>
 
       {/* Total cart item prices */}
-      {Object.keys(cartItems).length > 0 ? (
+      <div>
+        {Object.keys(cartItems).length > 0 ? (
         <CartTotal total={total} currency={currency} delivery={delivery} />
       ) : (
         <p className="text-center font-bold text-3xl text-gray-400">
           Cart is empty. Add product and buy
         </p>
       )}
+
+      {/* Proceed to Pay Button */}
+
+      <div className="w-full">
+        <button onClick={()=> navigate("/place-order")} className="bg-black text-white uppercase font-medium text-sm px-4 py-3 cursor-pointer ">Proceed to checkout</button>
+      </div>
+
+      </div>
     </div>
   );
 };
